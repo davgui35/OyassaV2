@@ -42,12 +42,13 @@ if(btnRegister != null) {
                 }
             }
             if(!errors){
-    
+                //remove datas session Storage
+                sessionStorage.clear();
                 db.insert(user, function (error, newDoc) { 
                     if(error != null){
                         // console.log("*** Error = ", error);
                     }
-                    sessionStorage.setItem("sessionLastname", user.lastname + ' ' + user.firstname);
+                    document.location.href = "../pages/login.html";
                     // console.log("*** created = ", newDoc);
                 });
             }

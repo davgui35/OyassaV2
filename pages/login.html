@@ -54,27 +54,26 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Se connecter</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Créer un compte!</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" id="loginForm">
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="mail"
-                                        placeholder="Email Address">
+                                    placeholder="Email Address">
+                                    <span class="badge rounded-pill bg-danger text-white" id="mailError"></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-user"
-                                            id="password" placeholder="Password">
+                                    id="password" placeholder="Password">
+                                    <span class="badge rounded-pill bg-danger text-white" id="passwordError"></span>
                                 </div>
                                 <a href="#" id="login" class="btn btn-primary btn-user btn-block">
-                                    Se connecter
+                                    Créer un compte
                                 </a>
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="../forgot-password.html">Mot de passe oublié?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="register.html">Se créer un compte !</a>
+                                <a class="small" href="register.html"><small>Vous n'êtes pas inscrit?</small> S'inscrire !</a>
                             </div>
                         </div>
                     </div>
