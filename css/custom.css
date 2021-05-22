@@ -1,0 +1,23 @@
+#topMenuBtns {
+    position: absolute;
+    right: 20px;
+}
+
+
+.topMenuBtn{
+    border:none;
+    background: transparent;
+    outline: none;
+    margin: 0 5px;
+    color: #858796;
+    -webkit-app-region: no-drag; 
+}
+
+#topMenu{
+    user-select: none;
+    -webkit-app-region: drag; 
+}
+
+#linkPage{
+    text-decoration: none;
+}
