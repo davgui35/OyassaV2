@@ -3,7 +3,6 @@ const btnLogin = document.getElementById('login');
 if(btnLogin != null) {
     btnLogin.addEventListener('click', () => {
         let existUsers = "";
-        let errors = false;
         // Les inputs du formulaire ajout d'une ligne
         const mail = document.getElementById('mail');
         const password = document.getElementById('password');
@@ -17,27 +16,19 @@ if(btnLogin != null) {
         // console.log("*** debug : ", logger);
         var Datastore = require('nedb'),
         db = new Datastore({ filename: 'database/users.db', autoload: true });
-        db.find({}, function (err, docs) {
-          for(let index = 0; index < docs.length; index++) {
-            existUsers = docs[index];
-            if (existUsers.mail != logger.mail) {
-              errors = true;
-              sessionStorage.setItem("mail", "Ce mail est erroné");
-              document.getElementById("mailError").innerText = sessionStorage.getItem("mail");
-            }        
-            if (existUsers.password != logger.password) {
-              sessionStorage.setItem("password", "Ce password est erroné");
-              document.getElementById("passwordError").innerText = sessionStorage.getItem("password");
-              errors = true;
-            }        
-           
-          }
-
-          if(!errors){
+        db.find({mail:logger.mail, password: logger.password}, function (err, docs) {
+          existUsers = docs;
+          console.log(docs);
+          if(docs != "") {
             sessionStorage.clear();
-            sessionStorage.setItem("isLogger", existUsers.lastname + " " + existUsers.firstname);
+            sessionStorage.setItem("isLogger", existUsers[0].firstname + " " + existUsers[0].lastname);
             document.location.href = "index.html";
+          }else{
+            sessionStorage.setItem("champ", "Ce champ est vide ou mal rempli");
+            document.getElementById("champ").innerText = sessionStorage.getItem("champ");
           }
+           
+          
         });
 
        

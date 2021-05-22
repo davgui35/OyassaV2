@@ -25,19 +25,20 @@ if(btnRegister != null) {
          db.find({}, function (err, docs) {
             for (let index = 0; index < docs.length; index++) {
                 existUsers = docs[index]; 
-                if (existUsers.lastname == user.lastname) {
+                console.log(existUsers);
+                if (existUsers.lastname == user.lastname || user.lastname == "") {
                     errors = true;
-                    sessionStorage.setItem("lastname", "Ce nom existe déjà");
+                    sessionStorage.setItem("lastname", "Ce nom est vide ou existe déjà");
                     document.getElementById("lastNameError").innerText = sessionStorage.getItem("lastname");
                 }
-                if (existUsers.firstname == user.firstname){
+                if (existUsers.firstname == user.firstname || user.firstname == ""){
                     errors = true;
-                    sessionStorage.setItem("firstname", "Ce prénom existe déjà");
+                    sessionStorage.setItem("firstname", "Ce prénom est vide ou existe déjà");
                     document.getElementById("firstNameError").innerText = sessionStorage.getItem("firstname");
                 }
-                if (existUsers.mail == user.mail){
+                if (existUsers.mail == user.mail || user.mail == ""){
                     errors = true;
-                    sessionStorage.setItem("mail", "Ce mail existe déjà");
+                    sessionStorage.setItem("mail", "Ce mail est vide ou existe déjà");
                     document.getElementById("mailError").innerText = sessionStorage.getItem("mail");
                 }
             }
@@ -46,9 +47,9 @@ if(btnRegister != null) {
                 sessionStorage.clear();
                 db.insert(user, function (error, newDoc) { 
                     if(error != null){
-                        // console.log("*** Error = ", error);
+                        console.log("*** Error = ", error);
                     }
-                    document.location.href = "../pages/login.html";
+                    // document.location.href = "../pages/login.html";
                     // console.log("*** created = ", newDoc);
                 });
             }
