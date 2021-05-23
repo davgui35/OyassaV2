@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Admin Oyassa</title>
+    <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,13 +21,13 @@
 
 </head>
 
-<body id="page-top" class="bg-dark">
+<body id="page-top" style="background-color: black;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: black;" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center my-3">
@@ -56,7 +56,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Lien direct:</h6>
-                        <a class="collapse-item" href="register.html">S'enregistrer</a>
+                        <a class="collapse-item no-user" href="register.html">S'enregistrer</a>
                         <a class="collapse-item" href="logout.html">Se déconnecter</a>
                     </div>
                 </div>
@@ -78,9 +78,9 @@
             <!-- Main Content -->
             <div id="content">
                 <!-- Topbar -->
-                <nav id="topMenu" class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <nav id="topMenu" class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
                     <div class="container-fluid">
-                    <span class="text-gray-400"><img src="../img/utilisateur.svg" width="30px"> <span class="text-warning" id="nameAdminUser"></span> </span>
+                    <span class="text-gray-400"><img src="../img/utilisateur.svg" width="30px"> <span class="text-warning" id="nameUser"></span> </span>
                         <!-- My topMenu action btns -->
                             <ul class="nav" id="topMenuBtns">
                                 <li>
@@ -101,17 +101,15 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 m-3 text-gray-800 text-center">Dashboard Admin</h1>
+                    <h1 class="h3 m-3 text-gray-800 text-center mb-5" id="statusUser"></h1>
                     
+                    <div id="userLogo"></div>
 
                     <!-- 6 modules -->
                     <!-- Content Row -->
                     <div class="row">
-
-
-
                         <!-- Add User -->
-                        <div class="col-xl-6 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-6 mb-4 no-user">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -129,7 +127,7 @@
                                 </div>
                             </div>
                         <!-- statistiques -->
-                        <div class="col-xl-6 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-6 mb-4 no-user">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -147,7 +145,7 @@
                                 </div>
                             </div>
                         <!-- new order-->
-                        <div class="col-xl-6 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-6 mb-4 user">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -166,7 +164,7 @@
                             </div>
 
                         <!-- order-->
-                        <div class="col-xl-6 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-6 mb-4 user">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -185,7 +183,7 @@
                             </div>
 
                         <!-- Add meal-->
-                        <div class="col-xl-6 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-6 mb-4 no-user">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -204,7 +202,7 @@
                             </div>
 
                         <!-- remove or update meal-->
-                        <div class="col-xl-6 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-6 mb-4 no-user">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -228,7 +226,7 @@
                     <!-- Content Row -->
 
                     <!-- Charts -->
-                    <div class="row">
+                    <div class="row no-user">
 
                         <!-- Area Chart -->
                         <div class="col-xl-8 col-lg-7">
@@ -262,7 +260,7 @@
                         </div>
 
                         <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                        <div class="col-xl-4 col-lg-5 no-user">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -315,7 +313,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer no-user" style="background-color: white;">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; Oyassa 2021</span>
@@ -370,7 +368,8 @@
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
     <script src="../js/app.js"></script>
-    <script src="../js/adminUser.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/ManagerUser.js"></script>
 <!-- 
     <script src="../vendor/chart.js/Chart.min.js"></script>
     <script src="../js/demo/chart-area-demo.js"></script>

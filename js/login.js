@@ -22,6 +22,7 @@ if(btnLogin != null) {
           if(docs != "") {
             sessionStorage.clear();
             sessionStorage.setItem("isLogger", existUsers[0].firstname + " " + existUsers[0].lastname);
+            sessionStorage.setItem("status", existUsers[0].status);
             document.location.href = "index.html";
           }else{
             sessionStorage.setItem("champ", "Ce champ est vide ou mal rempli");

@@ -9,17 +9,14 @@ if(newUser != null) {
         const firstname = document.getElementById('firstname');
         const mail = document.getElementById('mail');
         const password = document.getElementById('password');
-        const superAdmin = document.getElementById('superAdmin');
         const admin = document.getElementById('admin');
         const user = document.getElementById('user');
 
         // Droits users
         let status = "";
-        if(superAdmin.checked){
-            status = "superAdmin";
-        }else if(admin.checked) {
+        if(admin.checked) {
             status = "admin";
-        }else{
+        }else if(user.checked){
             status = "user";
         }
 
