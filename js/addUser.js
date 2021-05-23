@@ -1,7 +1,7 @@
 // Gestion formulaire + préparation BDD
-const btnRegister = document.getElementById('register');
-if(btnRegister != null) {
-    btnRegister.addEventListener('click', () => {
+const newUser = document.getElementById('newUser');
+if(newUser != null) {
+    newUser.addEventListener('click', () => {
         let existUsers = "";
         let errors = false;
         // Les inputs du formulaire ajout d'une ligne
@@ -9,16 +9,31 @@ if(btnRegister != null) {
         const firstname = document.getElementById('firstname');
         const mail = document.getElementById('mail');
         const password = document.getElementById('password');
-        // Préparer l'objet pour l'insertion en BDD
+        const superAdmin = document.getElementById('superAdmin');
+        const admin = document.getElementById('admin');
+        const user = document.getElementById('user');
 
-        let user = {
+        // Droits users
+        let status = "";
+        if(superAdmin.checked){
+            status = "superAdmin";
+        }else if(admin.checked) {
+            status = "admin";
+        }else{
+            status = "user";
+        }
+
+
+        // Préparer l'objet pour l'insertion en BDD
+        let accountUser = {
             lastname: lastname.value,
             firstname: firstname.value,
             mail: mail.value,
-            password: password.value
+            password: password.value,
+            status: status
         };
 
-        console.log("*** debug : ", user);
+        console.log("*** debug : ", accountUser);
         var Datastore = require('nedb'),
          db = new Datastore({ filename: 'database/users.db', autoload: true });
          // Find all documents in the collection
@@ -26,30 +41,31 @@ if(btnRegister != null) {
             for (let index = 0; index < docs.length; index++) {
                 existUsers = docs[index]; 
                 console.log(existUsers);
-                if (existUsers.lastname == user.lastname || user.lastname == "") {
+                if (existUsers.lastname == accountUser.lastname || accountUser.lastname == "") {
                     errors = true;
                     sessionStorage.setItem("lastname", "Ce nom est vide ou existe déjà");
                     document.getElementById("lastNameError").innerText = sessionStorage.getItem("lastname");
                 }
-                if (existUsers.firstname == user.firstname || user.firstname == ""){
+                if (existUsers.firstname == accountUser.firstname || accountUser.firstname == ""){
                     errors = true;
                     sessionStorage.setItem("firstname", "Ce prénom est vide ou existe déjà");
                     document.getElementById("firstNameError").innerText = sessionStorage.getItem("firstname");
                 }
-                if (existUsers.mail == user.mail || user.mail == ""){
+                if (existUsers.mail == accountUser.mail || accountUser.mail == ""){
                     errors = true;
                     sessionStorage.setItem("mail", "Ce mail est vide ou existe déjà");
                     document.getElementById("mailError").innerText = sessionStorage.getItem("mail");
                 }
             }
             if(!errors){
-                //remove datas session Storage
-                sessionStorage.clear();
-                db.insert(user, function (error, newDoc) { 
+                sessionStorage.removeItem("lastname");
+                sessionStorage.removeItem("firstname");
+                sessionStorage.removeItem("mail");
+                db.insert(accountUser, function (error, newDoc) { 
                     if(error != null){
                         console.log("*** Error = ", error);
                     }
-                    // document.location.href = "../pages/login.html";
+                    document.location.href = "index.html";
                     console.log("*** created = ", newDoc);
                 });
             }
@@ -57,5 +73,3 @@ if(btnRegister != null) {
 
     })
 }
-
-

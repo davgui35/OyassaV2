@@ -27,8 +27,6 @@ if(btnLogin != null) {
             sessionStorage.setItem("champ", "Ce champ est vide ou mal rempli");
             document.getElementById("champ").innerText = sessionStorage.getItem("champ");
           }
-           
-          
         });
 
        
