@@ -10,14 +10,18 @@ if(onlyUser != null) {
 }
 
 // Cacher la card des ajout de commandes
-if(window.sessionStorage.addCommands != undefined && addCustomer != null){
+if(window.sessionStorage.addCommands != undefined && addCustomer != null && newCustomer != null){
   // console.log(window.sessionStorage.addCommands);
   addCustomer.style.display = "none";
+  newCustomer.style.display = "block";
 }
-if(window.sessionStorage.addCommands && addCustomer == null && newCustomer != null ){
-  addCustomer.style.display = "block";
-  newCustomer.style.display = "none";
+else{
+  if(addCustomer != null || newCustomer != null ){
+    addCustomer.style.display = "block";
+    newCustomer.style.display = "none";
+  }
 }
+
 
 
 const htmlUserLogo = `
@@ -27,8 +31,8 @@ const htmlUserLogo = `
 
 
 // management Status / logg
-const adminUser = sessionStorage.isLogger;
-const status = sessionStorage.status;
+const adminUser = window.sessionStorage.isLogger;
+const status = window.sessionStorage.status;
 if(statusUser != null){
   statusUser.innerText = "Dashboard " + ucFirst(status);
 }

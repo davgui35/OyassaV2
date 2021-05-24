@@ -7,3 +7,4 @@ btnChoice.forEach(element => {
       element.classList.toggle('activeBg')
    })
 });
+

@@ -49,7 +49,7 @@ if(btnRegister != null) {
                     if(error != null){
                         console.log("*** Error = ", error);
                     }
-                    // document.location.href = "../pages/login.html";
+                    document.location.href = "login.html";
                     console.log("*** created = ", newDoc);
                 });
             }
