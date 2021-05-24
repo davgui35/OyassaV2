@@ -64,8 +64,7 @@
                 <!-- Topbar -->
                 <nav id="topMenu" class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
                     <div class="container-fluid">
-                        <span class="text-gray-400"><img src="../img/utilisateur.svg" width="30px"> Nom utilisateur
-                        </span>
+                        <span class="text-gray-400"><img src="../img/utilisateur.svg" width="30px"> <span class="text-warning" id="nameUser"></span> </span>
                         <!-- My topMenu action btns -->
                         <ul class="nav" id="topMenuBtns">
                             <li>
@@ -104,7 +103,7 @@
                         </div>
                         <!-- Modal -->
                         <button id="addCommands" class="btn btn-warning" data-toggle="modal"
-                            data-target="#addLineModal">Attention
+                            data-target="#addLineModal">Se déconnecter
                         </button>
 
                         <div class="modal fade" id="addLineModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -117,7 +116,7 @@
                                         <button type="button" class="btn-close topMenuBtn" data-dismiss="modal"
                                             aria-label="Close">&#128473;&#xFE0E;</button>
                                     </div>
-                                    <div class="modal-body bg-dark text-center">
+                                    <div class="modal-body text-center" style="background-color: black;">
                                         <img src="../img/logo-Oyassa.svg" width="120px">
                                     </div>
                                     <div class="modal-footer">
@@ -168,6 +167,7 @@
     <script src="../js/sb-admin-2.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/logout.js"></script>
+    <script src="../js/ManagerUser.js"></script>
 
     <!-- <script src="../vendor/chart.js/Chart.min.js"></script>
     <script src="../js/demo/chart-area-demo.js"></script>
