@@ -25,3 +25,11 @@
 .bg-user-status{
     background: #000 !important;
 }
+
+.activeBg {
+    background-color: #F1AB25 !important;
+}
+
+.btn-choice:hover{
+    background-color: #F1AB25 !important;
+}

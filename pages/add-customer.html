@@ -84,21 +84,41 @@
 
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid my-auto h-75 d-flex mb-4">
-                    <div class="col-3 mx-auto d-flex flex-column mt-5">
-                        <button class="btn text-white mb-3 btn-choice" style="background-color: black;" type="button">ENTREE</button>
-                        <button class="btn text-white mb-3 btn-choice" style="background-color: black;" type="button">SNACKS</button>
-                        <button class="btn text-white mb-3 btn-choice" style="background-color: black;" type="button">GRILLADES</button>
-                        <button class="btn text-white mb-3 btn-choice" style="background-color: black;" type="button">PLATS</button>
-                        <button class="btn text-white mb-3 btn-choice" style="background-color: black;" type="button">ACCOMPAGNEMENTS</button>
-                        <button class="btn text-white mb-3 btn-choice" style="background-color: black;" type="button">MENUS</button>
-                        <button class="btn text-white mb-3 btn-choice" style="background-color: black;" type="button">SAUCES</button>
-                        <button class="btn text-white mb-3 btn-choice" style="background-color: black;" type="button">BOISSONS</button>
-                        <button class="btn text-white mb-3 btn-choice" style="background-color: black;" type="button">DESSERTS</button>
-                      </div>
-                    <div class="col-8 mx-auto w-50">
-                       
-                      </div>
+                <div class="container-fluid my-auto h-75">
+                    <form class="row g-3 m-5" id="addCustomer">
+                        <div class="col-md-4 mt-3 mb-5">
+                          <label for="lastName" class="form-label" >Nom</label>
+                          <input type="text" class="form-control" name="lastName" required="required">
+                        </div>
+                        <div class="col-md-4 mt-3 mb-5">
+                          <label for="firstName" class="form-label" >Prénom</label>
+                          <input type="text" class="form-control" name="firstName"  required="required">
+                        </div>
+                        <div class="col-md-4 mt-3 mb-5">
+                          <label for="phone" class="form-label" >Téléphone</label>
+                          <input type="text" class="form-control" name="phone" required="required">
+                        </div>
+                        <div class="col-12 mt-3 mb-5">
+                          <label for="adress" class="form-label" >Adresse</label>
+                          <input type="text" class="form-control" placeholder="4 rue ..." name="adress" required="required">
+                        </div>
+                        <div class="col-md-6 mt-3 mb-2">
+                          <label for="city" class="form-label" >Ville</label>
+                          <input type="text" class="form-control" name="city" required="required">
+                        </div>
+                        <div class="col-md-2 mt-3">
+                            <label for="postCode" class="form-label" >City</label>
+                            <input type="text" class="form-control" name="postCode" required="required">
+                        </div>
+                        <div class="col-md-4 mt-3 mb-3">
+                          <label for="mail" class="form-label" >Adresse mail</label>
+                          <input type="email" class="form-control" placeholder="mail@gmail.com" name="mail" required="required">
+                        </div>
+                        <span class="badge bg-danger text-white" id="errors"></span>
+                        <div class="col-12 mt-5">
+                          <button type="submit" class="btn btn-outline-warning" id="newCustomer">Suivant</button>
+                        </div>
+                      </form>
                 </div>
                 <!-- End Page Content -->
             <!-- Footer -->
@@ -132,7 +152,7 @@
     <script src="../js/sb-admin-2.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/ManagerUser.js"></script>
-    <script src="../js/addCommands.js"></script>
+    <script src="../js/addCustomer.js"></script>
     
   
 

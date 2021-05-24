@@ -3,9 +3,22 @@ const statusUser = document.getElementById('statusUser');
 const onlyUser = document.getElementById('onlyUser');
 const wrapperContent = document.getElementById('content-wrapper');
 const userLogo = document.getElementById('userLogo');
+const addCustomer = document.querySelector('.add-customer');
+const newCustomer = document.querySelector('.new-customer');
 if(onlyUser != null) {
   onlyUser.style.display = "none";
 }
+
+// Cacher la card des ajout de commandes
+if(window.sessionStorage.addCommands != undefined && addCustomer != null){
+  // console.log(window.sessionStorage.addCommands);
+  addCustomer.style.display = "none";
+}
+if(window.sessionStorage.addCommands && addCustomer == null && newCustomer != null ){
+  addCustomer.style.display = "block";
+  newCustomer.style.display = "none";
+}
+
 
 const htmlUserLogo = `
 <div class="container d-flex justify-content-center mb-5 mt-5" id="onlyUser">
