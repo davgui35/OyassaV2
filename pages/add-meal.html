@@ -21,7 +21,7 @@
 
 </head>
 
-<body id="page-top" class="bg-dark">
+<body id="page-top" style="background-color: black;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -61,10 +61,10 @@
             <!-- Main Content -->
             <div id="content" style="background-color: white;">
 
-                <!-- Topbar -->
-                <nav id="topMenu" class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
+                 <!-- Topbar -->
+                 <nav id="topMenu" class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
                     <div class="container-fluid">
-                    <span class="text-gray-400"><img src="../img/utilisateur.svg" width="30px"> <span class="text-warning" id="nameUser"></span> <span class="text-warning">| Ajouter un nouveau plat</span> </span>
+                    <span class="text-gray-400"><img src="../img/utilisateur.svg" width="30px"> <span class="text-warning" id="nameUser"></span> </span>
                         <!-- My topMenu action btns -->
                             <ul class="nav" id="topMenuBtns">
                                 <li>
@@ -81,74 +81,99 @@
                 </nav>
                 <!-- End of Topbar -->
 
+
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-                     <!-- Page Heading -->
-                     <h1 class="h3 m-3 text-warning">1.CATEGORIES :</h1>
-                     <div class="form-check d-flex justify-content-center flex-wrap">
-                        <div class="mr-5 mb-3">
-                            <input class="form-check-input mr-2" type="radio" name="flexRadioDefault" id="admin" value="admin">
-                            <label class="form-check-label" for="admin">
-                                Plats
-                            </label>
-                        </div>
-                        <div class="mr-5 mb-3">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="user" value="user" >
-                            <label class="form-check-label" for="user">
-                                Snacks
-                            </label>
-                        </div>
-                        <div class="mr-5 mb-3">
-                            <input class="form-check-input mr-2" type="radio" name="flexRadioDefault" id="admin" value="admin">
-                            <label class="form-check-label" for="admin">
-                                Desserts
-                            </label>
-                        </div>
-                        <div class="mr-5 mb-3">
-                            <input class="form-check-input mr-2" type="radio" name="flexRadioDefault" id="user" value="user" >
-                            <label class="form-check-label" for="user">
-                                Grillades
-                            </label>
-                        </div>
-                        <div class="mr-5 mb-3">
-                            <input class="form-check-input mr-2" type="radio" name="flexRadioDefault" id="admin" value="admin">
-                            <label class="form-check-label" for="admin">
-                                Boissons
-                            </label>
-                        </div>
-                        <div class="mr-5 mb-3">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="user" value="user" >
-                            <label class="form-check-label" for="user">
-                                Entrées
-                            </label>
-                        </div>
-                        <div class="mr-5 mb-3">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="admin" value="admin">
-                            <label class="form-check-label" for="admin">
-                                Accompagnements
-                            </label>
-                        </div>
-                        <div class="mr-5 mb-3">
-                            <input class="form-check-input mr-2" type="radio" name="flexRadioDefault" id="user" value="user" >
-                            <label class="form-check-label" for="user">
-                                Sauces
-                            </label>
-                        </div>
-                        <div class="mr-5 mb-3">
-                            <input class="form-check-input mr-2" type="radio" name="flexRadioDefault" id="user" value="user" >
-                            <label class="form-check-label" for="user">
-                                Menus
-                            </label>
-                        </div>
+                <div class="container-fluid my-auto h-75">
+                    <div class="col-12 mt-5">
+                        <p class=" text-warning mr-5"> CATEGORIE</p>
                     </div>
-
+                    <form id="addCategory" class="col-12">
+                        <div class="row mb-3">
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="category" id="meals" value="meals" checked>
+                                <label class="form-check-label" for="meals">
+                                  Plats
+                                </label>
+                            </div>
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="category" id="snacks" value="snacks" >
+                                <label class="form-check-label" for="snacks">
+                                  Snacks
+                                </label>
+                            </div>
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="category" id="desserts" value="desserts" >
+                                <label class="form-check-label" for="desserts">
+                                  Desserts
+                                </label>
+                            </div>
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="category" id="grills" value="grills" >
+                                <label class="form-check-label" for="grills">
+                                  Grillades
+                                </label>
+                            </div>
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="category" id="drinks" value="drinks" >
+                                <label class="form-check-label" for="drinks">
+                                  Boissons
+                                </label>
+                            </div>
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="category" id="starters" value="starters" >
+                                <label class="form-check-label" for="starters">
+                                  Entrées
+                                </label>
+                            </div>
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="category" id="accompaniments" value="accompaniments" >
+                                <label class="form-check-label" for="accompaniments">
+                                  Accompagnements
+                                </label>
+                            </div>
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="category" id="sauces" value="sauces" >
+                                <label class="form-check-label" for="sauces">
+                                  Sauces
+                                </label>
+                            </div>
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="category" id="menus" value="menus" >
+                                <label class="form-check-label" for="menus">
+                                  Menus
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-8" id="nameMeal">
+                            <label for="meal" class="form-label text-warning"> NOM DU PLAT</label>
+                            <input type="text" class="form-control" id="meal" placeholder="Nom du plat">
+                        </div>
+                        <div id="drinksChoice">
+                            <div class="col-12 mt-2">
+                                <p class=" text-warning"> QUANTITY</p>
+                            </div>
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="quantity" id="33" value="33" >
+                                <label class="form-check-label" for="33">
+                                  33 CL
+                                </label>
+                            </div>
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="quantity" id="55" value="55" >
+                                <label class="form-check-label" for="55">
+                                  55 CL
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-8" id="priceMeal">
+                            <label for="price" class="form-label text-warning"> PRIX DU PLAT</label>
+                            <input type="text" class="form-control" id="price" placeholder="Price du plat">
+                        </div>
+                        <button type="submit" class="btn text-white mt-4" style="background-color: #008B2B;"
+                        id="categoryChoice">Valider</button>
+                    </form>
                 </div>
-                <!-- /.container-fluid -->
-
-
-            </div>
-            <!-- End of Main Content -->
-
+                <!-- End Page Content -->
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -179,9 +204,10 @@
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
     <script src="../js/app.js"></script>
-    <script src="../js/commands.js"></script>
     <script src="../js/ManagerUser.js"></script>
     <script src="../js/addMeals.js"></script>
+    
+  
 
     <!-- <script src="../vendor/chart.js/Chart.min.js"></script>
     <script src="../js/demo/chart-area-demo.js"></script>
