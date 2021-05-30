@@ -33,3 +33,8 @@
 .btn-choice:hover{
     background-color: #F1AB25 !important;
 }
+
+.disabled{
+    background: rgb(170, 169, 169);
+    filter: grayscale(1);
+}

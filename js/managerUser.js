@@ -55,11 +55,3 @@ if(status == "user") {
   userLogo.innerHTML = htmlUserLogo;
 }
 
-// Upper first letter admin
-function ucFirst(str) {
-    if (str.length > 0) {
-      return str[0].toUpperCase() + str.substring(1);
-    } else {
-      return str;
-    }
-  }

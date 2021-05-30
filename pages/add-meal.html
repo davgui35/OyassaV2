@@ -84,6 +84,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid my-auto h-75">
+                    <div id="infoAddMeal"></div>
                     <div class="col-12 mt-5">
                         <p class=" text-warning mr-5"> CATEGORIE</p>
                     </div>
@@ -132,13 +133,13 @@
                                 </label>
                             </div>
                             <div class="form-check mr-3">
-                                <input class="form-check-input quantity" type="radio" name="quantity"  id="sauces" value="sauces" >
+                                <input class="form-check-input categorie" type="radio" name="quantity"  id="sauces" value="sauces" >
                                 <label class="form-check-label" for="sauces">
                                   Sauces
                                 </label>
                             </div>
                             <div class="form-check mr-3">
-                                <input class="form-check-input quantity" type="radio" name="quantity"  id="menus" value="menus" >
+                                <input class="form-check-input categorie" type="radio" name="quantity"  id="menus" value="menus" >
                                 <label class="form-check-label" for="menus">
                                   Menus
                                 </label>
@@ -159,15 +160,16 @@
                                 </label>
                             </div>
                             <div class="form-check mr-3">
-                                <input class="form-input quantity" type="checkbox" name="quantity" id="quantity" value="55" >
+                                <input class="form-input quantity" type="checkbox" name="quantity" id="quantity" value="50" >
                                 <label class="form-label" for="quantity">
-                                  55 CL
+                                  50 CL
                                 </label>
                             </div>
                         </div>
                         <div class="mb-3 col-8" id="priceMeal">
                             <label for="price" class="form-label text-warning"> PRIX DU PLAT</label>
                             <input type="text" class="form-control" id="price" placeholder="Price du plat">
+                            <span class="badge rounded-pill bg-danger text-white" id="priceError"></span>
                         </div>
                         <button type="submit" class="btn text-white mt-4" style="background-color: #008B2B;"
                         id="categoryChoice">Valider</button>
