@@ -1,9 +1,9 @@
 let newOrder = window.sessionStorage;
 let cardOfCustomer = [];
 let card = "";
-let sum = 0;
 let quantity = 0;
-let price = 0;
+let sum = 0;
+sessionStorage.getItem("priceOrder", 0);
 let customer = {
   lastName: newOrder.lastNameNewCustomer,
   firstName: newOrder.firstNameNewCustomer,
@@ -50,13 +50,20 @@ function addCardOfCustomer() {
 let data = addCardOfCustomer();
 
 // Insert in data base
-console.log("*** debug : ", data);
+// console.log("*** debug : ", data);
 
 card += `<div class="card" style="width: 18rem;">
 
         <ul class="list-group list-group-flush ">`;
 for (let index = 0; index < data.length; index++) {
   const element = data[index];
+  if (element.quantity != undefined && element.price != undefined) {
+    console.log(element.quantity);
+    console.log(element.price);
+    sum += parseInt(element.quantity) * parseInt(element.price);
+  }
+  sum = Math.round(sum * 100) / 100;
+  console.log(sum);
   if (!element.customer) {
     card += `
             <li class="list-group-item d-flex justify-content-around" id="group-element">
@@ -77,7 +84,8 @@ card += `
         <li class="list-group-item d-flex justify-content-between">
         <span>Montant total : </span>
         <span>${sum}€</span>
-        </li>`;
+        </li>
+        <button type="button" class="btn btn-outline-light" onclick="window.location.reload()">Actualiser le panier</button>`;
 card += `</ul></div>`;
 
 document.getElementById("orders").innerHTML = card;
@@ -94,11 +102,14 @@ function minusQuantity(index) {
 }
 
 const groupElement = document.querySelectorAll("#group-element");
+
 for (let index = 0; index < groupElement.length; index++) {
   const element = groupElement[index];
+
   element.addEventListener("click", (e) => {
     quantity = document.getElementById("quantity-" + index).innerText;
     price = document.getElementById("price-" + index).innerText;
+    sum += price * quantity;
     let keySession = data[index].categorie + ".db";
     // modify data in session storage
     // console.log(keySession); //starters.db
@@ -107,10 +118,12 @@ for (let index = 0; index < groupElement.length; index++) {
     // check include object in data of session storage
     tmpData.find((v) => v._id === data[index]._id).quantity = quantity;
     // quantity actually
-    // console.log(quantity);
-    // console.log(data[index]);
-    // console.log(tmpData);
     // return the new quantity of the object
     sessionStorage.setItem(keySession, JSON.stringify(tmpData));
   });
+}
+
+function actualiser() {
+  sessionStorage.setItem("priceOrder", sum);
+  window.location.reload();
 }
