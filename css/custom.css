@@ -1,40 +1,43 @@
 #topMenuBtns {
-    position: absolute;
-    right: 20px;
+  position: absolute;
+  right: 20px;
 }
 
-
-.topMenuBtn{
-    border:none;
-    background: transparent;
-    outline: none;
-    margin: 0 5px;
-    color: #858796;
-    -webkit-app-region: no-drag; 
+.topMenuBtn {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin: 0 5px;
+  color: #858796;
+  -webkit-app-region: no-drag;
 }
 
-#topMenu{
-    user-select: none;
-    -webkit-app-region: drag; 
+#topMenu {
+  user-select: none;
+  -webkit-app-region: drag;
 }
 
-#linkPage{
-    text-decoration: none;
+#linkPage {
+  text-decoration: none;
 }
 
-.bg-user-status{
-    background: #000 !important;
+.bg-user-status {
+  background: #000 !important;
 }
 
 .activeBg {
-    background-color: #F1AB25 !important;
+  background-color: #f1ab25 !important;
 }
 
-.btn-choice:hover{
-    background-color: #F1AB25 !important;
+.btn-choice:hover {
+  background-color: #f1ab25 !important;
 }
 
-.disabled{
-    background: rgb(170, 169, 169);
-    filter: grayscale(1);
+.disabled {
+  background: rgb(170, 169, 169);
+  filter: grayscale(1);
+}
+
+#orders {
+  font-size: small;
 }
