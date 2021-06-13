@@ -1,8 +1,9 @@
 let newOrder = window.sessionStorage;
 let cardOfCustomer = [];
-const orders = document.getElementById("orders");
 let card = "";
 let sum = 0;
+let quantity = 0;
+let price = 0;
 let customer = {
   lastName: newOrder.lastNameNewCustomer,
   firstName: newOrder.firstNameNewCustomer,
@@ -41,6 +42,7 @@ function addCardOfCustomer() {
       }
     });
   }
+  order.push({ customer: customer });
   return order;
 }
 
@@ -49,60 +51,66 @@ let data = addCardOfCustomer();
 
 // Insert in data base
 console.log("*** debug : ", data);
-if (data !== "" && window.sessionStorage.getItem("addCommands")) {
-  let filename = "database/newOrder.db";
-  var Datastore = require("nedb"),
-    db = new Datastore({ filename: filename, autoload: true });
-  db.find({}, function (err, docs) {
-    db.count({}, function (err, count) {
-      count++;
-      if (window.sessionStorage.numberCommands == count) {
-        db.insert({ _id: count, customer, data }, function (error, newDoc) {
-          if (error != null) {
-            console.log("*** Error = ", error);
-          }
-          console.log("*** created = ", newDoc);
-        });
-      }
-    });
-  });
 
-  db.find({}, function (err, docs) {
-    for (let index = 0; index < docs.length; index++) {
-      const element = docs[index];
-      card = "";
-      // console.log(element._id);
-      card += `<div id="cards-${element._id}">`;
-      for (let index = 0; index < element.data.length; index++) {
-        const meals = element.data[index];
-        // console.log(meals);
-        card += ` <div class="col">
-                      <div class="row d-flex justify-content-evenly align-items-center">
-                        <div class="col text-center">
-                          <h5 class="card-title mt-3"><b>${meals.name}</b></h5>
-                        </div>
-                        <div class="col d-flex  mt-3">
-                          <p class="mr-2"><img src="../img/plus.svg" alt="en stock" width="15px"/></p>
-                          <p class="card-text">${meals.quantity}</p>
-                          <p class="ml-2"><img src="../img/minus.svg" alt="en stock" width="15px" /></p>
-                        </div>
-                        <div class="col d-flex  mt-2">
-                          <p class="card-text"><b>${meals.price}</b> €</p>
-                        </div>
-                        <div class="col  mt-2">
-                          <p class="card-text d-flex"><b>${
-                            meals.price * meals.quantity
-                          }</b> €</p>
-                        </div>
-                      </div>
-                  </div>
-                  <hr/>`;
-        sum += meals.price * meals.quantity;
-      }
-      card += `</div>`;
-      console.log(sum);
-      document.getElementById("sum").innerText = sum;
-      document.getElementById("orders").innerHTML += card;
-    }
+card += `<div class="card" style="width: 18rem;">
+
+        <ul class="list-group list-group-flush ">`;
+for (let index = 0; index < data.length; index++) {
+  const element = data[index];
+  if (!element.customer) {
+    card += `
+            <li class="list-group-item d-flex justify-content-around" id="group-element">
+              <span>${element.name}</span>
+              <span id="plus-${index}"> <img src="../img/plus.svg" alt="en stock" width="20px" onclick="addQuantity(${index})"/> </span>
+              <span id="quantity-${index}">${element.quantity}</span>
+              <span id="minus-${index}"> <img src="../img/minus.svg" alt="en stock" width="20px" onclick="minusQuantity(${index})"/></span>
+              <span id="price-${index}">${element.price}</span>
+              <span></span>
+            </li>`;
+  }
+}
+card += `
+        <li class="list-group-item">
+        <span>Livraison : </span>
+        <span></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+        <span>Montant total : </span>
+        <span>${sum}€</span>
+        </li>`;
+card += `</ul></div>`;
+
+document.getElementById("orders").innerHTML = card;
+
+function addQuantity(index) {
+  // console.log(index);
+  return document.getElementById("quantity-" + index).innerText++;
+}
+function minusQuantity(index) {
+  // console.log(index);
+  if (document.getElementById("quantity-" + index).innerText > 0) {
+    return document.getElementById("quantity-" + index).innerText--;
+  }
+}
+
+const groupElement = document.querySelectorAll("#group-element");
+for (let index = 0; index < groupElement.length; index++) {
+  const element = groupElement[index];
+  element.addEventListener("click", (e) => {
+    quantity = document.getElementById("quantity-" + index).innerText;
+    price = document.getElementById("price-" + index).innerText;
+    let keySession = data[index].categorie + ".db";
+    // modify data in session storage
+    // console.log(keySession); //starters.db
+    let tmpData = JSON.parse(sessionStorage.getItem(keySession));
+    // console.log(data[index]._id);
+    // check include object in data of session storage
+    tmpData.find((v) => v._id === data[index]._id).quantity = quantity;
+    // quantity actually
+    // console.log(quantity);
+    // console.log(data[index]);
+    // console.log(tmpData);
+    // return the new quantity of the object
+    sessionStorage.setItem(keySession, JSON.stringify(tmpData));
   });
 }
