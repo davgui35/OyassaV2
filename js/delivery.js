@@ -52,22 +52,22 @@ let data = addCardOfCustomer();
 // Insert in data base
 // console.log("*** debug : ", data);
 
-card += `<div class="card" style="width: 18rem;">
+card += `<div class="card" style="width: 21rem;">
 
         <ul class="list-group list-group-flush ">`;
 for (let index = 0; index < data.length; index++) {
   const element = data[index];
   if (element.quantity != undefined && element.price != undefined) {
-    console.log(element.quantity);
-    console.log(element.price);
+    // console.log(element.quantity);
+    // console.log(element.price);
     sum += parseInt(element.quantity) * parseInt(element.price);
   }
   sum = Math.round(sum * 100) / 100;
-  console.log(sum);
+  // console.log(sum);
   if (!element.customer) {
     card += `
             <li class="list-group-item d-flex justify-content-around" id="group-element">
-              <span>${element.name}</span>
+              <span><strong>${element.name}</strong></span>
               <span id="plus-${index}"> <img src="../img/plus.svg" alt="en stock" width="20px" onclick="addQuantity(${index})"/> </span>
               <span id="quantity-${index}">${element.quantity}</span>
               <span id="minus-${index}"> <img src="../img/minus.svg" alt="en stock" width="20px" onclick="minusQuantity(${index})"/></span>
@@ -78,14 +78,14 @@ for (let index = 0; index < data.length; index++) {
 }
 card += `
         <li class="list-group-item">
-        <span>Livraison : </span>
+        <span><strong>Livraison :</strong></span>
         <span></span>
         </li>
         <li class="list-group-item d-flex justify-content-between">
-        <span>Montant total : </span>
+        <span><strong>Montant total : </strong></span>
         <span>${sum}€</span>
         </li>
-        <button type="button" class="btn btn-outline-light" onclick="window.location.reload()">Actualiser le panier</button>`;
+        <button type="button" class="btn btn-outline-warning" onclick="window.location.reload()">Actualiser le panier</button>`;
 card += `</ul></div>`;
 
 document.getElementById("orders").innerHTML = card;
@@ -127,3 +127,56 @@ function actualiser() {
   sessionStorage.setItem("priceOrder", sum);
   window.location.reload();
 }
+
+/// PARTIE INFOS ///
+const deliveryHours = document.getElementById("delivery-hours");
+const HoursActually = document.getElementById("hours");
+console.log(deliveryHours);
+function horloge() {
+  let heure = new Date();
+  if (heure.getMinutes() < 10) {
+    return "Heure : " + heure.getHours() + ":" + "0" + heure.getMinutes();
+  }
+  return (heure = "Heure : " + heure.getHours() + ":" + heure.getMinutes());
+}
+
+setInterval(() => {
+  hours.innerText = horloge();
+}, 1000);
+
+function deliveryIn40Minutes() {
+  let oldDateObj = new Date();
+  let newDateObj = new Date();
+  newDateObj.setTime(oldDateObj.getTime() + 30 * 60 * 1000);
+  if (newDateObj.getMinutes() < 10) {
+    return newDateObj.getHours() + ":" + "0" + newDateObj.getMinutes();
+  }
+  return newDateObj.getHours() + ":" + newDateObj.getMinutes();
+}
+
+deliveryHours.innerText = deliveryIn40Minutes();
+
+// Formulaire radio
+let form = document.getElementById("form");
+console.log(form);
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let pointRDV = document.getElementById("pointRDV").checked;
+  let adresse = document.getElementById("adresse").checked;
+  console.log("adresse=> " + adresse, "pointRDV=> " + pointRDV);
+  let cleunay = document.getElementById("cleunay").checked;
+  let grandQuartier = document.getElementById("grandQuartier").checked;
+  let poterie = document.getElementById("poterie").checked;
+  console.log(
+    "cleunay=> " + cleunay,
+    "grandQuartier=> " + grandQuartier,
+    "poterie=> " + poterie
+  );
+  let CB = document.getElementById("CB").checked;
+  let espece = document.getElementById("espece").checked;
+  console.log("CB=> " + CB, "espece=> " + espece);
+  let commentaire = document.getElementById("commentaire").value;
+  console.log("commentaire=> " + commentaire);
+  const heure = deliveryIn40Minutes();
+  console.log(heure);
+});
