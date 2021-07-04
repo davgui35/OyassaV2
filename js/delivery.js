@@ -76,16 +76,21 @@ for (let index = 0; index < data.length; index++) {
             </li>`;
   }
 }
-card += `
-        <li class="list-group-item">
-        <span><strong>Livraison :</strong></span>
-        <span></span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-        <span><strong>Montant total : </strong></span>
-        <span>${sum}€</span>
-        </li>
-        <button type="button" class="btn btn-outline-warning" onclick="window.location.reload()">Actualiser le panier</button>`;
+card += `<li class="list-group-item d-flex justify-content-between">
+        <span><strong>Livraison :</strong></span>`;
+        if(sessionStorage.priceDelivery === undefined || sessionStorage.priceDelivery === "") {
+          card += `<span style="color:red">Pas de frais de livraison!</span>`;
+        }else{
+          card += `<span style="font-weight:bold">${sessionStorage.getItem('priceDelivery')} €</span>`;
+        }
+card += `</li>
+        <li class="list-group-item d-flex justify-content-between">`;
+        if(sessionStorage.priceDelivery === undefined || sessionStorage.priceDelivery === "") {
+          card += `<span><strong>Montant total : </strong></span><span>${sum}  €</span>`;
+        }else{
+          card += `<span><strong>Montant total : </strong></span><span>${sum + parseInt(sessionStorage.getItem('priceDelivery'))}  €</span>`;
+        }
+        card += `</li><button type="button" class="btn btn-outline-warning" onclick="window.location.reload()">Actualiser le panier</button>`;
 card += `</ul></div>`;
 
 document.getElementById("orders").innerHTML = card;
@@ -159,24 +164,136 @@ deliveryHours.innerText = deliveryIn40Minutes();
 // Formulaire radio
 let form = document.getElementById("form");
 console.log(form);
+let priceDelivery = 0;
+let meansOfPayment = "CB";
+
+let RDV = document.getElementsByName('RDV');
+let pointRDV = document.getElementById("pointRDV").checked;
+let adresse = document.getElementById("adresse").checked;
+let cleunay = document.getElementById("cleunay").checked;
+let grandQuartier = document.getElementById("grandQuartier").checked;
+let poterie = document.getElementById("poterie").checked;
+let CB = document.getElementById("CB").checked;
+let espece = document.getElementById("espece").checked;
+
+
+
+// RDV
+document.getElementById("pointRDV").addEventListener('change', (e) => {
+  document.getElementById('adressCustomer').innerText = "";
+  document.getElementById('choice').style.display ="block";
+})
+
+document.getElementById("adresse").addEventListener('change', (e) => {
+  document.getElementById('adressCustomer').innerText = `Votre adresse: ${customer.adress} ${customer.postCode} ${customer.city} .`;
+  switch (customer.postCode) {
+    case 35200:
+        priceDelivery = 3;
+      break;
+    case 35700:
+        priceDelivery = 3;
+      break;
+    case 35000:
+        priceDelivery = 3;
+      break;
+    case 35136:
+        priceDelivery = 3;
+      break;
+    case 35760:
+        priceDelivery = 6;
+      break;
+    case 35170:
+        priceDelivery = 6;
+      break;
+    case 35132:
+        priceDelivery = 6;
+      break;
+    case 35650:
+        priceDelivery = 6;
+      break;
+    case 35520:
+        priceDelivery = 6;
+      break;
+  }
+  // console.log(priceDelivery);
+  sessionStorage.getItem('priceDelivery');
+  sessionStorage.setItem('priceDelivery', priceDelivery);
+  document.getElementById('choice').style.display ="none";
+})
+
+//CHOIX
+document.getElementById("cleunay").addEventListener('change', (e) => {
+  priceDelivery = 0;
+  // console.log(e.target.value);
+  sessionStorage.setItem('priceDelivery', priceDelivery);
+
+})
+
+document.getElementById("grandQuartier").addEventListener('change', (e) => {
+  priceDelivery = 3;
+  // console.log(e.target.value);
+  sessionStorage.setItem('priceDelivery', priceDelivery);
+})
+
+document.getElementById("poterie").addEventListener('change', (e) => {
+  priceDelivery = 3;
+  // console.log(e.target.value);
+  sessionStorage.setItem('priceDelivery', priceDelivery);
+})
+
+// Paiement
+document.getElementById("CB").addEventListener('change', (e) => {
+  // console.log(e.target.value);
+  sessionStorage.getItem('meansOfPayment');
+  sessionStorage.setItem('meansOfPayment', meansOfPayment);
+})
+
+document.getElementById("espece").addEventListener('change', (e) => {
+  // console.log(e.target.value);
+  sessionStorage.setItem('meansOfPayment', e.target.value);
+})
+
+
+//Commentaires
+
 form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let pointRDV = document.getElementById("pointRDV").checked;
-  let adresse = document.getElementById("adresse").checked;
-  console.log("adresse=> " + adresse, "pointRDV=> " + pointRDV);
-  let cleunay = document.getElementById("cleunay").checked;
-  let grandQuartier = document.getElementById("grandQuartier").checked;
-  let poterie = document.getElementById("poterie").checked;
-  console.log(
-    "cleunay=> " + cleunay,
-    "grandQuartier=> " + grandQuartier,
-    "poterie=> " + poterie
-  );
-  let CB = document.getElementById("CB").checked;
-  let espece = document.getElementById("espece").checked;
-  console.log("CB=> " + CB, "espece=> " + espece);
+  // e.preventDefault();
   let commentaire = document.getElementById("commentaire").value;
-  console.log("commentaire=> " + commentaire);
+  // console.log("commentaire => " + commentaire);
+  const comment = commentaire;
+  sessionStorage.getItem('commentDelivery');
+  sessionStorage.setItem('commentDelivery', comment);
   const heure = deliveryIn40Minutes();
-  console.log(heure);
+  sessionStorage.getItem('hoursDelivery');
+  sessionStorage.setItem('hoursDelivery', heure);
+  // console.log(heure);
+  sessionStorage.getItem('validationDelivery');
+  sessionStorage.setItem('validationDelivery', true);
 });
+
+
+
+form.addEventListener("reset", (e) => {
+  e.preventDefault();
+  document.getElementById("pointRDV").checked = true;
+  document.getElementById("adresse").checked = false;
+  document.getElementById("cleunay").checked = true;
+  document.getElementById("grandQuartier").checked = false;
+  document.getElementById("poterie").checked = false;
+  document.getElementById("CB").checked = true;
+  document.getElementById("espece").checked = false;
+  document.getElementById("commentaire").value = "";
+  deliveryIn40Minutes();
+  sessionStorage.setItem('priceDelivery', "");
+  sessionStorage.setItem('meansOfPayment', "");
+  sessionStorage.setItem('commentDelivery', "");
+  sessionStorage.setItem('hoursDelivery', "");
+  sessionStorage.setItem('validationDelivery', false);
+})
+
+
+if(sessionStorage.validationDelivery){
+  orders.innerHTML += `<div id="alertDelivery" class="alert alert-success my-3" role="alert">
+                        <strong>Livraison validé!</strong> <em>Préparation de la commande...</em>
+                      </div>`;
+}

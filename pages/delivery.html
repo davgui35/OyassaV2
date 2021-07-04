@@ -105,9 +105,10 @@
                                             <input class="form-check-input" type="radio" name="RDV" id="adresse" value="Adresse">
                                             <label class="form-check-label" for="Adresse">À votre adresse</label>
                                         </div>
+                                        <div id="adressCustomer"></div>
                                     </div>
                                 </div>
-                                <div class="my-4">
+                                <div class="my-4" id="choice">
                                     <div>
                                         <h4>3-Choix du point de RDV</h4>
                                         <div class="form-check form-check-inline">
@@ -145,7 +146,8 @@
                                           </div> 
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-outline-warning" >Valider</button>
+                                <button type="reset" class="btn btn-danger" id="btnReset">Reinitialiser</button>
+                                <button type="submit" class="btn btn-outline-warning" id="btnSubmit">Valider</button>
                             </form>
                         </div>
                     </div>
