@@ -93,7 +93,10 @@ card += `</li>
         card += `</li><button type="button" class="btn btn-outline-warning" onclick="window.location.reload()">Actualiser le panier</button>`;
 card += `</ul></div>`;
 
-document.getElementById("orders").innerHTML = card;
+sessionStorage.getItem('sum');
+sessionStorage.setItem('sum', sum);
+
+const orders = document.getElementById("orders").innerHTML = card;
 
 function addQuantity(index) {
   // console.log(index);
@@ -159,7 +162,7 @@ function deliveryIn40Minutes() {
   return newDateObj.getHours() + ":" + newDateObj.getMinutes();
 }
 
-deliveryHours.innerText = deliveryIn40Minutes();
+deliveryHours.innerHTML = deliveryIn40Minutes();
 
 // Formulaire radio
 let form = document.getElementById("form");
@@ -291,9 +294,6 @@ form.addEventListener("reset", (e) => {
   sessionStorage.setItem('validationDelivery', false);
 })
 
+const validation = document.getElementById('validation');
 
-if(sessionStorage.validationDelivery){
-  orders.innerHTML += `<div id="alertDelivery" class="alert alert-success my-3" role="alert">
-                        <strong>Livraison validé!</strong> <em>Préparation de la commande...</em>
-                      </div>`;
-}
+console.log(sessionStorage);
