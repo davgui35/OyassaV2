@@ -38,6 +38,7 @@ if(sessionStorage !== undefined) {
 }
 
 // TODOS: Début affichage mais changer les variables par des datas BD
+
 if(currentOrder.addCommands) {
     console.log(currentOrder);
     cardsCommands.innerHTML = `<div class="card" style="width: 18rem;">

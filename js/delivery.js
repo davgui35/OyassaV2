@@ -1,9 +1,11 @@
 let newOrder = window.sessionStorage;
 let cardOfCustomer = [];
+let ordersForDB = [];
 let card = "";
 let quantity = 0;
 let sum = 0;
 sessionStorage.getItem("priceOrder", 0);
+sessionStorage.removeItem('suivant.db');
 let customer = {
   lastName: newOrder.lastNameNewCustomer,
   firstName: newOrder.firstNameNewCustomer,
@@ -16,6 +18,7 @@ let customer = {
 
 // find Arrays meals
 // console.log(Object.keys(newOrder));
+
 
 for (let index = 0; index < Object.keys(newOrder).length; index++) {
   const element = Object.keys(newOrder)[index];
@@ -58,11 +61,15 @@ card += `<div class="card" style="width: 21rem;">
 for (let index = 0; index < data.length; index++) {
   const element = data[index];
   if (element.quantity != undefined && element.price != undefined) {
-    // console.log(element.quantity);
-    // console.log(element.price);
-    sum += parseInt(element.quantity) * parseInt(element.price);
+    let quantity = parseFloat(element.quantity);
+    let price = parseFloat(element.price);
+    // console.log(parseFloat(element.quantity));
+    // console.log(parseFloat(element.price));
+    sum += quantity * price;
   }
+
   sum = Math.round(sum * 100) / 100;
+  
   // console.log(sum);
   if (!element.customer) {
     card += `
@@ -90,7 +97,7 @@ card += `</li>
         }else{
           card += `<span><strong>Montant total : </strong></span><span>${sum + parseInt(sessionStorage.getItem('priceDelivery'))}  €</span>`;
         }
-        card += `</li><button type="button" class="btn btn-outline-warning" onclick="window.location.reload()">Actualiser le panier</button>`;
+        card += `</li><button type="button" class="btn btn-outline-warning" onclick="actualiser()" id="reloadBtn">Actualiser le panier avant d'imprimer</button>`;
 card += `</ul></div>`;
 
 sessionStorage.getItem('sum');
@@ -133,13 +140,17 @@ for (let index = 0; index < groupElement.length; index++) {
 
 function actualiser() {
   sessionStorage.setItem("priceOrder", sum);
+  sessionStorage.setItem("reloadCard", true);
+  sessionStorage.getItem('ordersForBD');
+  ordersForDB = JSON.stringify(ordersForDB);
+  sessionStorage.setItem('ordersForBD', ordersForDB);
   window.location.reload();
 }
 
 /// PARTIE INFOS ///
 const deliveryHours = document.getElementById("delivery-hours");
 const HoursActually = document.getElementById("hours");
-console.log(deliveryHours);
+// console.log(deliveryHours);
 function horloge() {
   let heure = new Date();
   if (heure.getMinutes() < 10) {
@@ -166,7 +177,7 @@ deliveryHours.innerHTML = deliveryIn40Minutes();
 
 // Formulaire radio
 let form = document.getElementById("form");
-console.log(form);
+// console.log(form);
 let priceDelivery = 0;
 let meansOfPayment = "CB";
 
@@ -260,7 +271,7 @@ document.getElementById("espece").addEventListener('change', (e) => {
 //Commentaires
 
 form.addEventListener("submit", (e) => {
-  // e.preventDefault();
+  e.preventDefault();
   let commentaire = document.getElementById("commentaire").value;
   // console.log("commentaire => " + commentaire);
   const comment = commentaire;
@@ -272,14 +283,45 @@ form.addEventListener("submit", (e) => {
   // console.log(heure);
   sessionStorage.getItem('validationDelivery');
   sessionStorage.setItem('validationDelivery', true);
+
+  // IS validate
+  // console.log(sessionStorage);
+  if(sessionStorage.validationDelivery) {
+    // console.log('validate');
+    let numberCommand = parseInt(sessionStorage.getItem('numberCommands'));
+    ordersForDB.push({"numberCommand": numberCommand});
+    let workDate = new Date().toLocaleDateString();
+    ordersForDB.push({"workDate": workDate});
+    for (let index = 0; index < Object.keys(newOrder).length; index++) {
+      const nameTableSession = Object.keys(newOrder)[index];
+      if (nameTableSession.substr(-3, 3) == ".db" && nameTableSession != "suivant.db") {
+        let tables = JSON.parse(sessionStorage.getItem(nameTableSession));
+        tables.forEach(elementTable => {
+          if(elementTable.quantity !== "0" && elementTable.status !== "disabled") {
+              ordersForDB.push(elementTable);
+          }
+        })
+      }
+    }
+    // console.log(ordersForDB);
+    // Force print
+    if(sessionStorage.validationDelivery && sessionStorage.reloadCard) {
+      btnSubmit.style.display = "none";
+      // console.log(reloadBtn);
+    }
+  }
 });
 
+
+// Force print
+if(sessionStorage.validationDelivery && sessionStorage.reloadCard) {
+  btnSubmit.style.display = "none";
+  console.log(reloadBtn);
+}
 
 
 form.addEventListener("reset", (e) => {
   e.preventDefault();
-  document.getElementById("pointRDV").checked = true;
-  document.getElementById("adresse").checked = false;
   document.getElementById("cleunay").checked = true;
   document.getElementById("grandQuartier").checked = false;
   document.getElementById("poterie").checked = false;
@@ -291,9 +333,33 @@ form.addEventListener("reset", (e) => {
   sessionStorage.setItem('meansOfPayment', "");
   sessionStorage.setItem('commentDelivery', "");
   sessionStorage.setItem('hoursDelivery', "");
+  sessionStorage.setItem('reloadCard', false);
   sessionStorage.setItem('validationDelivery', false);
+  btnSubmit.style.display = "inline-block";
 })
 
-const validation = document.getElementById('validation');
 
-console.log(sessionStorage);
+// console.log(sessionStorage);
+
+function resetAll() {
+  let session = Object.keys(newOrder);
+  for (let index = 0; index < session.length; index++) {
+    const orderCustomer = session[index];
+    let saveStatus = ["status", "isLogger", "numberCommands", "workDate" ];
+    if(!saveStatus.includes(orderCustomer)) {
+      sessionStorage.removeItem(orderCustomer);
+    }
+  }
+}
+
+
+function validateBD() {
+  let ordersForBD = sessionStorage.getItem('ordersForDB');
+  console.log(ordersForBD);
+  var Datastore = require('nedb'),
+  db = new Datastore({ filename: 'database/orders.db', autoload: true });
+  db.insert(ordersForDB, function (err, newDoc) {  
+    console.log(newDoc);
+    resetAll();
+  });
+}
