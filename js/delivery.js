@@ -16,6 +16,9 @@ let customer = {
   phone: newOrder.phoneNewCustomer,
 };
 
+let date = new Date();
+console.log(date);
+
 // find Arrays meals
 // console.log(Object.keys(newOrder));
 
