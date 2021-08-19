@@ -1,6 +1,5 @@
 let newOrder = window.sessionStorage;
 let cardOfCustomer = [];
-let ordersForDB = [];
 let card = "";
 let quantity = 0;
 let sum = 0;
@@ -15,9 +14,7 @@ let customer = {
   mail: newOrder.mailNewCustomer,
   phone: newOrder.phoneNewCustomer,
 };
-
-let date = new Date();
-console.log(date);
+let ordersForDB = {};
 
 // find Arrays meals
 // console.log(Object.keys(newOrder));
@@ -105,6 +102,7 @@ card += `</ul></div>`;
 
 sessionStorage.getItem('sum');
 sessionStorage.setItem('sum', sum);
+let sum_ticket = sessionStorage.getItem('sum');
 
 const orders = document.getElementById("orders").innerHTML = card;
 
@@ -144,9 +142,9 @@ for (let index = 0; index < groupElement.length; index++) {
 function actualiser() {
   sessionStorage.setItem("priceOrder", sum);
   sessionStorage.setItem("reloadCard", true);
-  sessionStorage.getItem('ordersForBD');
+  sessionStorage.getItem('ordersForDB');
   ordersForDB = JSON.stringify(ordersForDB);
-  sessionStorage.setItem('ordersForBD', ordersForDB);
+  sessionStorage.setItem('ordersForDB', ordersForDB);
   window.location.reload();
 }
 
@@ -272,15 +270,18 @@ document.getElementById("espece").addEventListener('change', (e) => {
 
 
 //Commentaires
+let tmp_elementTable = [];
+let comment = "";
+let heure = "";
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   let commentaire = document.getElementById("commentaire").value;
   // console.log("commentaire => " + commentaire);
-  const comment = commentaire;
+  comment = commentaire;
   sessionStorage.getItem('commentDelivery');
   sessionStorage.setItem('commentDelivery', comment);
-  const heure = deliveryIn40Minutes();
+  heure = deliveryIn40Minutes();
   sessionStorage.getItem('hoursDelivery');
   sessionStorage.setItem('hoursDelivery', heure);
   // console.log(heure);
@@ -292,19 +293,26 @@ form.addEventListener("submit", (e) => {
   if(sessionStorage.validationDelivery) {
     // console.log('validate');
     let numberCommand = parseInt(sessionStorage.getItem('numberCommands'));
-    ordersForDB.push({"numberCommand": numberCommand});
     let workDate = new Date().toLocaleDateString();
-    ordersForDB.push({"workDate": workDate});
     for (let index = 0; index < Object.keys(newOrder).length; index++) {
       const nameTableSession = Object.keys(newOrder)[index];
       if (nameTableSession.substr(-3, 3) == ".db" && nameTableSession != "suivant.db") {
         let tables = JSON.parse(sessionStorage.getItem(nameTableSession));
-        tables.forEach(elementTable => {
+        tables.forEach( elementTable => {
           if(elementTable.quantity !== "0" && elementTable.status !== "disabled") {
-              ordersForDB.push(elementTable);
+            tmp_elementTable.push(elementTable);            
           }
         })
       }
+    }
+    console.log(tmp_elementTable);
+    ordersForDB = {
+      _id: numberCommand,
+      date: workDate,
+      sum: sum_ticket,
+      hoursDelivery: heure,
+      comment: comment,
+      meals: tmp_elementTable,
     }
     // console.log(ordersForDB);
     // Force print
@@ -314,7 +322,6 @@ form.addEventListener("submit", (e) => {
     }
   }
 });
-
 
 // Force print
 if(sessionStorage.validationDelivery && sessionStorage.reloadCard) {
@@ -342,7 +349,7 @@ form.addEventListener("reset", (e) => {
 })
 
 
-// console.log(sessionStorage);
+
 
 function resetAll() {
   let session = Object.keys(newOrder);
@@ -353,16 +360,14 @@ function resetAll() {
       sessionStorage.removeItem(orderCustomer);
     }
   }
+
 }
 
-
 function validateBD() {
-  let ordersForBD = sessionStorage.getItem('ordersForDB');
-  console.log(ordersForBD);
   var Datastore = require('nedb'),
   db = new Datastore({ filename: 'database/orders.db', autoload: true });
-  db.insert(ordersForDB, function (err, newDoc) {  
+  db.insert(JSON.parse(ordersForDB), function (err, newDoc) {  
     console.log(newDoc);
-    resetAll();
   });
+  // resetAll();
 }
